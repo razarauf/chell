@@ -1,0 +1,86 @@
+Script started on Wed Mar 26 21:20:27 2014
+Script on a049408[1]% ls
+asg4-2.log  chell.c  chell.h  chell.o  colorfile.txt  for_sort  [0m[38;5;34mmain[0m*  main.c  main.o  makefile  somefile.c
+[mScript on a049408[2]% make le[K[Kc[Kclean
+rm -f *.o main
+Script on a049408[3]% make
+g++   -c main.c
+g++   -c chell.c
+g++   main.o chell.o -o main
+Script on a049408[4]% main
+[myshell]% 
+[myshell]% 
+[myshell]% e ls ] file1
+
+[myshell]% exo it
+Script on a049408[5]% ls
+asg4-2.log  chell.c  chell.h  chell.o  colorfile.txt  file1  for_sort  [0m[38;5;34mmain[0m*  main.c  main.o  makefile  somefile.c
+[mScript on a049408[6]% ma[K[Knano file1
+[?1049h[1;54r(B[m[4l[?7h[?12l[?25h[?1h=[?1h=[?1h=[39;49m[39;49m(B[m[H[2J(B[0;7m  GNU nano 2.0.9                           File: file1                                                             [3;1H(B[masg4-2.log[4dchell.c[5dchell.h[6dchell.o[7dcolorfile.txt[8dfile1[9dfor_sort[10dmain[11dmain.c[12dmain.o[13dmakefile[14dsomefile.c[52;50H(B[0;7m[ Read 12 lines ][53d^G(B[m Get Help[53;20H(B[0;7m^O(B[m WriteOut[53;39H(B[0;7m^R(B[m Read File	 (B[0;7m^Y(B[m Prev Page[77G(B[0;7m^K(B[m Cut Text[53;96H(B[0;7m^C(B[m Cur Pos[54d(B[0;7m^X(B[m Exit[54;20H(B[0;7m^J(B[m Justify[54;39H(B[0;7m^W(B[m Where Is[54;58H(B[0;7m^V(B[m Next Page[77G(B[0;7m^U(B[m UnCut Text[96G(B[0;7m^T(B[m To Spell[3d[53d[J[54;115H[54;1H[?1049l[?1l>Script on a049408[7]% cat file1
+asg4-2.log
+chell.c
+chell.h
+chell.o
+colorfile.txt
+file1
+for_sort
+main
+main.c
+main.o
+makefile
+somefile.c
+Script on a049408[8]% main
+[myshell]% s sort [ colorfile.txt             for  _sort. 
+1, Justin Timberlake, Title 545, Price $6.30
+2, Taylor Swift, Title 723, Price $7.90
+3, Mick Jagger, Title 610, Price $7.90
+4, Lady Gaga, Title 118, Price $6.30
+5, Johnny Cash, Title 482, Price $6.50
+6, Elvis Presley, Title 335, Price $6.30
+7, John Lennon, Title 271, Price $7.90
+8, Michael Jackson, Title 373, Price $5.50
+
+[myshell]% exit
+Script on a049408[9]% cat for_sort 
+4, Lady Gaga, Title 118, Price $6.30
+7, John Lennon, Title 271, Price $7.90
+6, Elvis Presley, Title 335, Price $6.30
+8, Michael Jackson, Title 373, Price $5.50
+5, Johnny Cash, Title 482, Price $6.50
+1, Justin Timberlake, Title 545, Price $6.30
+3, Mick Jagger, Title 610, Price $7.90
+2, Taylor Swift, Title 723, Price $7.90
+Script on a049408[10]% main
+[myshell]% ls @ sort
+asg4-2.log
+chell.c
+chell.h
+chell.o
+colorfile.txt
+file1
+for_sort
+main
+main.c
+main.o
+makefile
+somefile.c
+
+[myshell]% asd
+asd: Command not found
+[myshell]% exit
+Script on a049408[11]% exi[K[K[Kls
+asg4-2.log  chell.c  chell.h  chell.o  colorfile.txt  file1  for_sort  [0m[38;5;34mmain[0m*  main.c  main.o  makefile  somefile.c
+[mScript on a049408[12]% touhc [K[K[Kc[K[K[Kca t colorfile.txt 
+This is an example file
+testing the use of grep and sed.
+Sed will modify the spelling of color.
+Red color, blue color, green color, orange color.
+Grep will display specific lines.  
+This is for our pipes lab.
+Pipes provide the user with a synchronized means of
+interprocess communication.
+Two kinds of pipes exist: named or unnamed.
+Script on a049408[13]% exit[K[K[K[Kexot[K[Kit
+exit
+
+Script done on Wed Mar 26 21:22:57 2014
