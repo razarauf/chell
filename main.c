@@ -1,8 +1,15 @@
+//
+//  main.cpp
+//  chell project
+//
+//  The program implements Unix shell commands using C.
+
 #include "chell.h"
 
 int main(int argc, char * argv[], char **envp)
 {
-
+    //The following two functions catch and process the interrupt and stop signals
+    //AKA signals sent by the Ctrl-C and Ctrl-Z commands
     if (signal(SIGINT,signal_catcher)==SIG_ERR)
     {
             perror("Sigset cannot set SIGINT");
@@ -14,13 +21,13 @@ int main(int argc, char * argv[], char **envp)
             exit(SIGTSTP);
     }
     
+    //Declaring and initializing variables to be used later
     initHistory();
     initAlias();
     int this_input = 0;
     
     char * input = (char *) malloc(sizeof(char)*128);
     strcpy (input, "noexit");
-    
     char *shellname = (char *) malloc(sizeof(char)*128);
     strcpy (shellname, "myshell");
     
@@ -28,11 +35,14 @@ int main(int argc, char * argv[], char **envp)
     
     printf ("[%s]%% ", shellname);
     input = getLine(input, 100);
+    
+    //Making sure the program does not crash if the input simply the return key
     while (strcmp(input,"\0") == 0)
     {
         printf ("[%s]%% ", shellname);
         input = getLine(input, 100);
     }
+    
     setHistory(input);
     breakLine (input);
     this_input = whichInput();
@@ -44,6 +54,7 @@ int main(int argc, char * argv[], char **envp)
     
     while (loop != 0) 
     {
+        //Loop and process commands until the exist command is entered
         if(this_input==4) {
             if(strcmp(argrv[argrc-1], "&")==0)
             {

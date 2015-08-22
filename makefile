@@ -1,6 +1,7 @@
 # specify the compiler
-CC   = cc   # this is the cross platform standard C compiler
-CXX  = g++  # this is the GNU C++ compiler
+#CC   = cc  # this is the cross platform standard C compiler
+CXX  = g++
+#CXX  = g++  # this is the GNU C++ compiler
 #CXX = CC   # Solaris C++ compiler on hercules
 
 FILE = chell

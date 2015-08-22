@@ -1,4 +1,6 @@
 #include "chell.h"
+
+//Declaring variables
 int argrc;
 char ** argrv;
 char * shell_name;
@@ -20,12 +22,14 @@ char *alias_alias = (char *) malloc(sizeof(char)*128);
 char *alias_murder = (char *) malloc(sizeof(char)*128);
 
 void decrargrc()
+//Function decrements the argument counter
 {
     argrc--;
 }
 
 void printEnv(char **envrp)
 {
+//Function prints the enironment
     
     if(argrc == 1)
     {
@@ -50,7 +54,8 @@ void printEnv(char **envrp)
 }
 
 void initAlias()
-{    
+//Function initializes commands with default aliases
+{
     strcpy(alias_exit, "exit");
     strcpy(alias_cd, "cd");
     strcpy(alias_pwd, "pwd");
@@ -64,6 +69,7 @@ void initAlias()
 }
 
 int whichInput()
+//Function compares the user input and returns the appropriate integer
 {
     if(strcmp(alias_exit, argrv[0]) == 0)
         return 1;
@@ -90,6 +96,7 @@ int whichInput()
 }
 
 void alias()
+//Function changes the default command alias to a user defined alias
 {
     if(argrc == 1)
     {
@@ -129,6 +136,7 @@ void alias()
 }
 
 void murder()
+//Functions sends the kill command to the process with the specified PID
 {
     if(argrc == 2)
     {
@@ -164,6 +172,7 @@ void murder()
 }
 
 void initHistory()
+//Function intializes the command history
 {
     history_counter = 0;
     history_limit = 5;
@@ -171,6 +180,7 @@ void initHistory()
 }
 
 void setHistory(char *input)
+//Function sets the command history
 {
     char * tempStr = (char *) malloc(sizeof(char)*128);
     strcpy(tempStr, input);
@@ -179,6 +189,7 @@ void setHistory(char *input)
 }
 
 void printHistory()
+//Function prints the command history
 {
     int tmp_history_limit = 0;
     if(history_counter<history_limit)
@@ -226,6 +237,7 @@ void printHistory()
     
 }
 void list ()
+//Function lists the directories and files in the current folder
 {
     int fork_true = 0;
     int pid;
@@ -278,6 +290,7 @@ void list ()
 }
 
 void pwd ()
+//Function lists the path to the current directory
 {
     if(argrc == 1)
     {
@@ -294,6 +307,7 @@ void pwd ()
 }
 
 void prompt ()
+//Sets the shell name to the name specified by user
 {
     if(argrc == 1)
     {
@@ -312,6 +326,7 @@ void nocmd (char *input)
 }
 
 void breakLine (char * input)
+//Function breaks the user input line into arguments to process later
 {
     //break the argument into individual words and count how many arguments
     char * tempStr = (char *) malloc(sizeof(char)*128);
@@ -345,6 +360,7 @@ void breakLine (char * input)
 }
 
 char *getLine (char *input, int size)
+//Function reads user input and processes for use later
 {
     //remove the \n at the end of the input if it exists
     char *tempPtr = fgets(input, size, stdin);
@@ -360,26 +376,32 @@ char *getLine (char *input, int size)
 }
 
 char ** getargrv()
+//Returns the pointer to user arguments entered
 {
     return argrv;
 }
+
 int getargrc()
+//Returns the number of arguments entered
 {
     return argrc;
 }
 
 void setShellName(char *in_shell_name)
+//Sets the shell name to the specified name
 {
     shell_name = (char *) malloc(sizeof(char)*128);
     strcpy (shell_name, in_shell_name);
 }
 
 char *getShellName()
+//Returns a pointer to the current shell name
 {
     return shell_name;
 }
 
 void mypid()
+//Returns the PID of the current process
 {
     if(argrc == 1)
     {
@@ -390,6 +412,7 @@ void mypid()
 }
 
 void dirChange()
+//Changes the current directory to a valid directory specified by the user
 {
     if(argrc == 1)
     {
