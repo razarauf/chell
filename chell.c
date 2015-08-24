@@ -3,23 +3,23 @@
 //Declaring variables
 int argrc;
 char ** argrv;
-char * shell_name;
-char ** shell_history;
+char * shell_name = (char *) malloc(sizeof(char)*32);
+char ** shell_history = (char**)malloc(sizeof(char**)*128);
 int history_counter;
 int history_limit;
 
 char ** alias_table = (char**)malloc(10);
 
-char *alias_exit = (char *) malloc(sizeof(char)*128);
-char *alias_cd = (char *) malloc(sizeof(char)*128);
-char *alias_pwd = (char *) malloc(sizeof(char)*128);
-char *alias_list = (char *) malloc(sizeof(char)*128);
-char *alias_pid = (char *) malloc(sizeof(char)*128);
-char *alias_prompt = (char *) malloc(sizeof(char)*128);
-char *alias_history = (char *) malloc(sizeof(char)*128);
-char *alias_printenv = (char *) malloc(sizeof(char)*128);
-char *alias_alias = (char *) malloc(sizeof(char)*128);
-char *alias_murder = (char *) malloc(sizeof(char)*128);
+char *alias_exit = (char *) malloc(sizeof(char)*32);
+char *alias_cd = (char *) malloc(sizeof(char)*32);
+char *alias_pwd = (char *) malloc(sizeof(char)*32);
+char *alias_list = (char *) malloc(sizeof(char)*32);
+char *alias_pid = (char *) malloc(sizeof(char)*32);
+char *alias_prompt = (char *) malloc(sizeof(char)*32);
+char *alias_history = (char *) malloc(sizeof(char)*32);
+char *alias_printenv = (char *) malloc(sizeof(char)*32);
+char *alias_alias = (char *) malloc(sizeof(char)*32);
+char *alias_murder = (char *) malloc(sizeof(char)*32);
 
 void decrargrc()
 //Function decrements the argument counter
@@ -29,7 +29,7 @@ void decrargrc()
 
 void printEnv(char **envrp)
 {
-//Function prints the enironment
+    //Function prints the enironment
     
     if(argrc == 1)
     {
@@ -143,10 +143,10 @@ void murder()
         //int status;
         //if(fork()==0)
         //{
-            int pid = atoi (argrv[1]);
-            if(kill(pid, SIGKILL) < 0)
-                printf("kill failed");
-            //exit(0);    
+        int pid = atoi (argrv[1]);
+        if(kill(pid, SIGKILL) < 0)
+            printf("kill failed");
+        //exit(0);
         //}
         //else{wait(&status);}
         
@@ -154,15 +154,15 @@ void murder()
     {
         //if(fork()==0)
         //{
-            char *tmp2 = argrv[1];
-            //printf("tmp2: %s\n",tmp2+1);
-            int pid_signal = atoi (tmp2+1);
-            //printf("signal: %i ",pid_signal);
-            int pid = atoi (argrv[2]);
-            //printf("pid: %i ",pid);
-            if(kill(pid, pid_signal) < 0)
-                printf("kill failed");
-            //exit(0);    
+        char *tmp2 = argrv[1];
+        //printf("tmp2: %s\n",tmp2+1);
+        int pid_signal = atoi (tmp2+1);
+        //printf("signal: %i ",pid_signal);
+        int pid = atoi (argrv[2]);
+        //printf("pid: %i ",pid);
+        if(kill(pid, pid_signal) < 0)
+            printf("kill failed");
+        //exit(0);
         //}
     }else
     {
@@ -176,7 +176,6 @@ void initHistory()
 {
     history_counter = 0;
     history_limit = 5;
-    shell_history = (char**)malloc(sizeof(char**)*128);
 }
 
 void setHistory(char *input)
@@ -197,7 +196,7 @@ void printHistory()
         tmp_history_limit = history_counter;
     } else
     {
-        tmp_history_limit = history_limit;    
+        tmp_history_limit = history_limit;
     }
     
     if(argrc == 1)
@@ -205,7 +204,7 @@ void printHistory()
         int counter = 0;
         int counter_down = history_counter;
         while(counter < tmp_history_limit)
-        //while(counter_down != 0)
+            //while(counter_down != 0)
         {
             counter_down--;
             printf("%s\n", shell_history[counter_down]);
@@ -219,12 +218,12 @@ void printHistory()
             tmp_history_limit = history_counter;
         } else
         {
-            tmp_history_limit = history_limit;    
+            tmp_history_limit = history_limit;
         }
         int counter = 0;
         int counter_down = history_counter;
         while(counter < tmp_history_limit)
-        //while(counter_down != 0)
+            //while(counter_down != 0)
         {
             counter_down--;
             printf("%s\n", shell_history[counter_down]);
@@ -253,12 +252,12 @@ void list ()
             printf("Error -- list");
         } else
         {
-           while ((file_entry = readdir(dir)) != NULL)
-           {
-              if((strcmp(file_entry->d_name, ".") != 0) && (strcmp(file_entry->d_name, "..") != 0))
-                printf("%s\n", file_entry->d_name); 
-           }
-           closedir(dir);
+            while ((file_entry = readdir(dir)) != NULL)
+            {
+                if((strcmp(file_entry->d_name, ".") != 0) && (strcmp(file_entry->d_name, "..") != 0))
+                    printf("%s\n", file_entry->d_name);
+            }
+            closedir(dir);
         }
     } else if (argrc > 1)
     {
@@ -275,18 +274,18 @@ void list ()
                 printf("\n%s:\n",argrv[k]);
                 while ((file_entry = readdir(dir)) != NULL)
                 {
-                   if((strcmp(file_entry->d_name, ".") != 0) && (strcmp(file_entry->d_name, "..") != 0))
-                      printf("%s\n", file_entry->d_name); 
+                    if((strcmp(file_entry->d_name, ".") != 0) && (strcmp(file_entry->d_name, "..") != 0))
+                        printf("%s\n", file_entry->d_name);
                 }
                 closedir(dir);
-            }    
+            }
         }
     }
     else
     {
         printf("%s: Arguments not valid.", argrv[0]);
     }
-
+    
 }
 
 void pwd ()
@@ -297,7 +296,7 @@ void pwd ()
         char pwd[2048];
         char *check_pwd = getcwd(pwd, sizeof(pwd));
         if (check_pwd == NULL)
-            printf("Error -- PWD"); 
+            printf("Error -- PWD");
         else
             printf("%s", pwd);
     } else
@@ -317,7 +316,7 @@ void prompt ()
         strcpy (shell_name, argrv[1]);
     } else {
         printf("%s: Arguments not valid.", argrv[0]);
-    }   
+    }
 }
 
 void nocmd (char *input)
@@ -333,7 +332,7 @@ void breakLine (char * input)
     strcpy (tempStr, input);
     argrc = 0;
     char * tempWd = strtok(tempStr, " ");
-    argrc++;    
+    argrc++;
     while((tempWd=strtok(NULL, " "))!=NULL)
     {
         argrc++;
@@ -356,7 +355,10 @@ void breakLine (char * input)
     //printf("%i\n", argrc);
     //for (int j=0; j<argrc; j++){
     //    printf("%s", argrv[j]);
-    //}   
+    //}
+    
+    free(tempStr);
+    tempStr = NULL;
 }
 
 char *getLine (char *input, int size)
@@ -390,7 +392,6 @@ int getargrc()
 void setShellName(char *in_shell_name)
 //Sets the shell name to the specified name
 {
-    shell_name = (char *) malloc(sizeof(char)*128);
     strcpy (shell_name, in_shell_name);
 }
 
@@ -405,10 +406,10 @@ void mypid()
 {
     if(argrc == 1)
     {
-        printf("PID : %d", getpid());  
+        printf("PID : %d", getpid());
     } else {
         printf("%s: Arguments not valid.", argrv[0]);
-    }  
+    }
 }
 
 void dirChange()
@@ -434,7 +435,7 @@ void dirChange()
         } else
         {
             printf ("Error changing to %s directory. Error #: %i", argrv[1], check_change);
-        }    
+        }
     }
     else
     {
@@ -444,14 +445,47 @@ void dirChange()
 
 void signal_catcher(int the_sig)
 {
-        //The following line is commented out, but may be necessary in
-        //some implementations. Otherwise, the signal may return to its
-        //default action after one occurance of the signal is handled
-        //signal(the_sig, signal_catcher); //reset
-        if (the_sig == SIGTSTP)
-            printf("\nCtrl-Z\n");
-        else if (the_sig == SIGINT)
-            printf("\nCtrl-C\n");
-        if (the_sig == SIGQUIT)
-                exit(1);
+    //The following line is commented out, but may be necessary in
+    //some implementations. Otherwise, the signal may return to its
+    //default action after one occurance of the signal is handled
+    //signal(the_sig, signal_catcher); //reset
+    if (the_sig == SIGTSTP)
+        printf("\nCtrl-Z\n");
+    else if (the_sig == SIGINT)
+        printf("\nCtrl-C\n");
+    if (the_sig == SIGQUIT)
+        exit(1);
+}
+
+void freeDynamicMem()
+{
+    free (argrv);
+    free (shell_name);
+    free (shell_history);
+    free (alias_table);
+    free (alias_exit);
+    free (alias_cd);
+    free (alias_pwd);
+    free (alias_list);
+    free (alias_pid);
+    free (alias_prompt);
+    free (alias_history);
+    free (alias_printenv);
+    free (alias_alias);
+    free (alias_murder);
+    
+    argrv = NULL;
+    shell_name = NULL;
+    shell_history = NULL;
+    alias_table = NULL;
+    alias_cd = NULL;
+    alias_exit = NULL;
+    alias_pwd = NULL;
+    alias_list = NULL;
+    alias_pid = NULL;
+    alias_prompt = NULL;
+    alias_history = NULL;
+    alias_printenv = NULL;
+    alias_alias = NULL;
+    alias_murder = NULL;
 }

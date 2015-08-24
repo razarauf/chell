@@ -36,4 +36,5 @@ void alias();
 void printEnv(char **);
 void murder();
 void signal_catcher(int);
+void freeDynamicMem();
 #endif

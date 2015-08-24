@@ -12,13 +12,13 @@ int main(int argc, char * argv[], char **envp)
     //AKA signals sent by the Ctrl-C and Ctrl-Z commands
     if (signal(SIGINT,signal_catcher)==SIG_ERR)
     {
-            perror("Sigset cannot set SIGINT");
-            exit(SIGINT);
+        perror("Sigset cannot set SIGINT");
+        exit(SIGINT);
     }
     if (signal(SIGTSTP, signal_catcher)==SIG_ERR)
     {
-            perror("Sigset can not set SIGTSTP");
-            exit(SIGTSTP);
+        perror("Sigset can not set SIGTSTP");
+        exit(SIGTSTP);
     }
     
     //Declaring and initializing variables to be used later
@@ -26,9 +26,9 @@ int main(int argc, char * argv[], char **envp)
     initAlias();
     int this_input = 0;
     
-    char * input = (char *) malloc(sizeof(char)*128);
+    char * input = (char *) malloc(sizeof(char)*64);
     strcpy (input, "noexit");
-    char *shellname = (char *) malloc(sizeof(char)*128);
+    char *shellname = (char *) malloc(sizeof(char)*32);
     strcpy (shellname, "myshell");
     
     setShellName(shellname);
@@ -52,7 +52,7 @@ int main(int argc, char * argv[], char **envp)
     
     int loop = 1;
     
-    while (loop != 0) 
+    while (loop != 0)
     {
         //Loop and process commands until the exist command is entered
         if(this_input==4) {
@@ -137,6 +137,13 @@ int main(int argc, char * argv[], char **envp)
             if (getargrc() == 1)
             {
                 loop = 0;
+                free (input);
+                free (shellname);
+                
+                input = NULL;
+                shellname = NULL;
+                
+                freeDynamicMem();
                 return 0;
             } else {
                 printf("%s: Arguments not valid.", argrv[0]);
@@ -211,5 +218,5 @@ int main(int argc, char * argv[], char **envp)
         argrv = getargrv();
         argrc = getargrc();
     }
-    return 0;    
+    return 0;
 }
